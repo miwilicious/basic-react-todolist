@@ -1,50 +1,102 @@
-# React + TypeScript + Vite
+## basic-react-todolist
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+#### Project Overview
+This project is a simple to-do list application built with React and TypeScript. It provides a user-friendly interface to add, display, toggle completion, and remove to-do items. The state of the to-do list is persisted in the browser's local storage, so the list remains available even after refreshing the page.
 
-Currently, two official plugins are available:
+ #### Technologies Used
+- React & TypeScript: The project leverages React’s component-based architecture and hooks (such as useState) for managing state, along with TypeScript for type safety.
+- Bootstrap: Styling is enhanced with Bootstrap classes to ensure a responsive, clean layout.
+- SCSS/CSS: Custom styling is applied through CSS and SCSS files to add a unique look (for example, custom classes like pink-card and bg-pink).
+- Local Storage API: The app uses the browser’s local storage to save the list of to-dos, allowing data persistence across sessions.
+- Inline SVGs: Decorative SVG icons are embedded within the components to improve the visual appeal.
+ 
+ ### Components and Their Responsibilities
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+#### 1. App Component
+Serves as the main container and entry point of the application.
+Sets up the layout with a header that includes decorative SVG icons and a welcoming title.
+Embeds the AppToDoList component inside a styled container.
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+#### 2. AppToDoList Component
+Manages the overall state of the to-do list using React’s useState hook.
+Initializes state by reading from local storage and writes back to local storage whenever the state changes.
+Implements three core functions:
+addToList: Creates a new to-do item with a unique ID (using the current timestamp) and adds it to the list.
+removeToDo: Filters out a to-do item based on its unique ID.
+toggleToDo: Switches the completion status of a to-do item.
+Passes these functions as props to child components for adding and displaying to-dos.
 
-- Configure the top-level `parserOptions` property like this:
+#### 3. AddToList Component
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+Renders a form with an input field and a save button.
+Uses a local state to capture the text entered by the user.
+When the form is submitted, it calls the addToDo function (received via props) with the entered text, then clears the input field.
+
+#### 4. ShowList Component
+
+Receives the current list of to-do items and functions for removing and toggling items as props.
+Displays a message when there are no items to show.
+Iterates over the list of to-dos and renders each item within a styled list.
+Each item shows its text and includes two SVG icons:
+One icon toggles the completion status (with a different SVG displayed for completed vs. active items).
+Another icon removes the to-do item from the list.
+
+### Data Flow and State Management
+
+#### State Initialization:
+The AppToDoList component initializes its state by parsing a JSON string stored in local storage. If no data exists, it defaults to an empty array.
+
+#### Adding a To-Do:
+When a user enters text in the AddToList component and submits the form, the addToList function is triggered. This function creates a new to-do using the current timestamp as a unique ID and updates the state.
+
+#### Toggling and Removing:
+The ShowList component displays the to-do items and provides interactive elements to toggle the done status or remove items. Both actions trigger state updates in AppToDoList, which in turn updates local storage to maintain persistence.
+
+### Styling and Layout
+
+#### Bootstrap Integration:
+The project uses Bootstrap classes for a responsive and modern layout, such as containers, flexbox utilities, and card components.
+
+#### Custom Styles:
+Custom CSS/SCSS files (e.g., App.css, AddToList.scss, and Showlist.scss) further style components with specific classes like pink-card and bg-pink, adding a unique aesthetic.
+
+#### Inline SVG Icons:
+SVGs are used for decorative purposes (in the header) and as interactive icons (for toggling and removing items). Their inline implementation allows for easy customization of attributes such as size and fill color.
+
+
+## demo
+
+
+### funtionality of list
+
+![image](/public/demo/1.PNG)
+
+![image](/public/demo/2.PNG)
+
+![image](/public/demo/3.PNG)
+
+
+
+## Installation
+ 
+### 1. Clone this repository
 ```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+https://github.com/miwilicious/basic-react-todolist
 ```
+ 
+### 2. Navigate to the project folder
+```
+cd react_list_projekt
+```
+ 
+### 3. Install dependencies
+```
+npm install
+```
+ 
+### 4. Run the application
+```
+npm run dev
+```
+The application will be available at local: http://localhost:5173/
